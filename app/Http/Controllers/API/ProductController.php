@@ -17,6 +17,14 @@ class ProductController extends Controller
             return response()->json(new ProductCollection($products),
             Response::HTTP_OK);
         }
+    public function show(Product $product)
+        {
+            return response()->json([
+            'status' => true,
+            'message' => 'Product retrieved successfully',
+            'data' => new ProductResource($product)
+            ], Response::HTTP_OK);
+        }
     public function store(ProductRequest $request)
         {
             $product = Product::create($request->validated());
@@ -25,14 +33,6 @@ class ProductController extends Controller
             'message' => 'Product created successfully',
             'data' => new ProductResource($product),
             ], Response::HTTP_CREATED);
-        }
-    public function show(Product $product)
-        {
-            return response()->json([
-            'status' => true,
-            'message' => 'Product retrieved successfully',
-            'data' => new ProductResource($product)
-            ], Response::HTTP_OK);
         }
     public function update(ProductRequest $request, Product $product)
         {
